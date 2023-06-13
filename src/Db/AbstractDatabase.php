@@ -43,6 +43,7 @@ use MStilkerich\RCMCardDAV\DataConversion;
  *     accountname: string,
  *     username: string,
  *     password: string,
+ *     api_key: ?string,
  *     discovery_url: ?string,
  *     last_discovered: numeric-string,
  *     rediscover_time: numeric-string,

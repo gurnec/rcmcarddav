@@ -56,6 +56,7 @@ $labels = Array(
 	'AccProps_discoveryurl_placeholder_lbl' => 'Domain often sufficient',
 	'AccProps_username_lbl' => 'Username',
 	'AccProps_password_lbl' => 'Password',
+	'AccProps_apikey_lbl' => 'API Key (Gmail only)',
 
 	'AccProps_discoveryinfo_seclbl' => 'Addressbook discovery',
 	'AccProps_rediscover_time_lbl' => 'Rediscovery interval (hours)',

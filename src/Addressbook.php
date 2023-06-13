@@ -47,6 +47,7 @@ use MStilkerich\RCMCardDAV\Db\{AbstractDatabase,DbAndCondition,DbOrCondition};
  *   name: string,
  *   username: string,
  *   password: string,
+ *   api_key: string,
  *   url: string,
  *   use_categories: Int1,
  *   readonly: Int1,
@@ -1608,12 +1609,13 @@ class Addressbook extends rcube_addressbook
         if (!isset($this->davAbook)) {
             $infra = Config::inst();
             $url = $this->config["url"];
+            $api_key = $this->config["api_key"];
 
             // only the username and password are stored to DB before replacing placeholders
             $username = $this->config["username"];
             $password = $this->config["password"];
 
-            $account = Config::makeAccount($url, $username, $password, $url);
+            $account = Config::makeAccount($url, $username, $password, $url, $api_key);
             $davAbook = $infra->makeWebDavResource($url, $account);
             if ($davAbook instanceof AddressbookCollection) {
                 $this->davAbook = $davAbook;

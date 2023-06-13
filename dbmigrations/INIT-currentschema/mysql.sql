@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS TABLE_PREFIXcarddav_accounts (
 	accountname TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
 	username VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
 	password TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+	api_key VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
 	discovery_url VARCHAR(4095) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
 	user_id INT(10) UNSIGNED NOT NULL,
 	last_discovered BIGINT NOT NULL DEFAULT 0, -- time stamp (seconds since epoch) of the addressbooks were last discovered

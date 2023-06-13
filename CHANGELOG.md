@@ -3,6 +3,7 @@
 ## Version 5.x.y (to 5.0.1)
 
 - Allow to hide contacts without email also for user-defined addressbooks (Fixes #429)
+- Add API Key setting to support Gmail without OAuth (Fixes #442)
 
 ## Version 5.0.1 (to 5.0.0)
 

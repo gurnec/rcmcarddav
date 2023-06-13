@@ -132,6 +132,7 @@ class UI
                     ],
                     [ 'AccProps_username_lbl', 'username', 'text' ],
                     [ 'AccProps_password_lbl', 'password', 'password' ],
+                    [ 'AccProps_apikey_lbl', 'api_key', 'text' ],
                 ]
             ],
             [
@@ -163,6 +164,7 @@ class UI
                     ],
                     [ 'AccProps_username_lbl', 'username', 'text' ],
                     [ 'AccProps_password_lbl', 'password', 'password' ],
+                    [ 'AccProps_apikey_lbl', 'api_key', 'text' ],
                 ]
             ],
             [
@@ -804,7 +806,8 @@ class UI
             '',
             Utils::replacePlaceholdersUsername($accountCfg['username'] ?? ''),
             Utils::replacePlaceholdersPassword($accountCfg['password'] ?? ''),
-            null
+            null,
+            $accountCfg['api_key'] ?? null
         );
 
         $davAbook = $infra->makeWebDavResource($abookCfg['url'], $account);

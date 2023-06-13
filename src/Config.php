@@ -159,7 +159,7 @@ class Config
      *
      * Particularly, this takes care of setting up the credentials information properly.
      */
-    public static function makeAccount(string $discUrl, string $username, string $password, ?string $baseUrl): Account
+    public static function makeAccount(string $discUrl, string $username, string $password, ?string $baseUrl, ?string $apiKey): Account
     {
         if ($password == "%b") {
             if (
@@ -174,6 +174,9 @@ class Config
             }
         } else {
             $credentials = [ 'username' => $username, 'password' => $password ];
+        }
+        if (isset($apiKey)) {
+            $credentials['query'] = [ 'key' => $apiKey ];
         }
 
         return new Account($discUrl, $credentials, "", $baseUrl);

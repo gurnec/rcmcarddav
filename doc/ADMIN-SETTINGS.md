@@ -198,6 +198,8 @@ addressbooks from the database and creation of new ones.
           to an individual addressbook that belongs to the user, all other addressbooks of the user are added as well.
           If this behavior is not intended, you can disable discovery omitting this parameter and specify the
           addressbook URLs manually using `extra_addressbooks`. Default: `null`
+ - `api_key`: Gmail accounts which use username/password authentication also require a CardDAV-enabled Google API key
+              from https://console.cloud.google.com/apis/credentials.
  - `rediscover_time`: Time interval after which the addressbooks for the account should be rediscovered, in hours.
                       Format: `HH[:MM[:SS]]`
                       Default: 24:00:00 (1 day)

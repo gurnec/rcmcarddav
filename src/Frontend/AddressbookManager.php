@@ -77,6 +77,7 @@ use MStilkerich\RCMCardDAV\Db\AbstractDatabase;
  *     accountname?: string,
  *     username?: string,
  *     password?: string,
+ *     api_key?: ?string,
  *     discovery_url?: ?string,
  *     rediscover_time?: numeric-string,
  *     last_discovered?: numeric-string,
@@ -150,6 +151,7 @@ class AddressbookManager
         'accountname' => [ true, true ],
         'username' => [ true, true ],
         'password' => [ true, true ],
+        'api_key' => [ false, true ],
         'discovery_url' => [ false, true ], // discovery URI can be NULL, disables discovery
         'rediscover_time' => [ false, true ],
         'last_discovered' => [ false, true ],
@@ -239,6 +241,9 @@ class AddressbookManager
         if (isset($this->accountsDb[$accountId])) {
             $accountCfg = $this->accountsDb[$accountId];
             $accountCfg["password"] = Utils::decryptPassword($accountCfg["password"]);
+            if (isset($accountCfg["api_key"])) {
+                $accountCfg["api_key"] = strlen($accountCfg["api_key"]) ? Utils::decryptPassword($accountCfg["api_key"]) : null;
+            }
             return $accountCfg;
         }
 
@@ -258,6 +263,9 @@ class AddressbookManager
         // check parameters
         if (isset($pa['password'])) {
             $pa['password'] = Utils::encryptPassword($pa['password']);
+        }
+        if (isset($pa['api_key'])) {
+            $pa['api_key'] = strlen($pa['api_key']) ? Utils::encryptPassword($pa['api_key']) : null;
         }
 
         [ $cols, $vals ] = $this->prepareDbRow($pa, self::ACCOUNT_SETTINGS, true);
@@ -283,6 +291,9 @@ class AddressbookManager
         // encrypt the password before storing it
         if (isset($pa['password'])) {
             $pa['password'] = Utils::encryptPassword($pa['password']);
+        }
+        if (isset($pa['api_key'])) {
+            $pa['api_key'] = strlen($pa['api_key']) ? Utils::encryptPassword($pa['api_key']) : '';
         }
 
         [ $cols, $vals ] = $this->prepareDbRow($pa, self::ACCOUNT_SETTINGS, false);
@@ -451,6 +462,7 @@ class AddressbookManager
         // the URL is always stored without placeholders and needs not be replaced
         $config['username'] = Utils::replacePlaceholdersUsername($account["username"]);
         $config['password'] = Utils::replacePlaceholdersPassword($account["password"]);
+        $config['api_key'] = $account['api_key'];
 
         return new Addressbook($abookId, $config);
     }
@@ -608,7 +620,8 @@ class AddressbookManager
             Utils::replacePlaceholdersUrl($accountCfg['discovery_url']),
             Utils::replacePlaceholdersUsername($accountCfg['username'] ?? ''),
             Utils::replacePlaceholdersPassword($accountCfg['password'] ?? ''),
-            null
+            null,
+            $accountCfg['api_key'] ?? null
         );
 
         /** @psalm-var AccountSettings $accountCfg XXX temporary workaround for vimeo/psalm#8980 */

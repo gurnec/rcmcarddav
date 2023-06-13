@@ -19,7 +19,7 @@
 // When enabled, this option hides the 'CardDAV' section inside Preferences.
 // $prefs['_GLOBAL']['hide_preferences'] = true;
 
-// Scheme for storing the CardDAV passwords, in order from least to best security.
+// Scheme for storing the CardDAV passwords and any api keys, in order from least to best security.
 // Options: plain, base64, des_key, encrypted (default)
 // $prefs['_GLOBAL']['pwstore_scheme'] = 'encrypted';
 
@@ -64,6 +64,7 @@ $prefs['<Presetname>'] = [
     'username'     =>  '<CardDAV Username>',
     'password'     =>  '<CardDAV Password>',
     //// optional attributes
+    'api_key'      =>  '<Gmail API Key>',
     ////// if discovery_url is not specified / null, addressbook discovery is disabled (see extra_addressbooks)
     'discovery_url'          =>  '<CardDAV Discovery URL>',
     'rediscover_time' => '<Rediscover Time in Hours, Format HH[:MM[:SS]]>',

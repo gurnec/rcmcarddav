@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS TABLE_PREFIXcarddav_accounts (
 	accountname     TEXT NOT NULL,
 	username        TEXT NOT NULL,
 	password        TEXT NOT NULL,
+	api_key         VARCHAR(255),
 	discovery_url   TEXT,
 	user_id         integer NOT NULL,
 	last_discovered BIGINT NOT NULL DEFAULT 0,  -- time stamp (seconds since epoch) of the addressbooks were last discovered

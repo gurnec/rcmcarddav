@@ -41,7 +41,7 @@ use MStilkerich\CardDavClient\AddressbookCollection;
  * @psalm-import-type AbookSettings from AddressbookManager
  *
  * @psalm-type PasswordStoreScheme = 'plain' | 'base64' | 'des_key' | 'encrypted'
- * @psalm-type ConfigurablePresetAttr = 'accountname'|'discovery_url'|'username'|'password'|'rediscover_time'|
+ * @psalm-type ConfigurablePresetAttr = 'accountname'|'discovery_url'|'username'|'password'|'api_key'|'rediscover_time'|
  *                                      'active'|'refresh_time'|'use_categories'|'readonly'|'require_always_email'|
  *                                      'name'
  * @psalm-type SpecialAbookType = 'collected_recipients'|'collected_senders'
@@ -62,6 +62,7 @@ use MStilkerich\CardDavClient\AddressbookCollection;
  *     accountname: string,
  *     username: string,
  *     password: string,
+ *     api_key: ?string,
  *     discovery_url: ?string,
  *     rediscover_time: numeric-string,
  *     hide: Int1,
@@ -100,6 +101,7 @@ class AdminSettings
         'accountname'        => '',
         'username'           => '',
         'password'           => '',
+        'api_key'            => null,
         'discovery_url'      => null,
         'rediscover_time'    => '86400',
 
@@ -150,6 +152,7 @@ class AdminSettings
         'accountname'        => [ 'string',   false ],
         'username'           => [ 'string',   false ],
         'password'           => [ 'string',   false ],
+        'api_key'            => [ 'string',   false ],
         'discovery_url'      => [ 'url',      false ],
         'rediscover_time'    => [ 'timestr',  false ],
         'hide'               => [ 'bool',     false ],
@@ -470,7 +473,8 @@ class AdminSettings
                             '',
                             Utils::replacePlaceholdersUsername($accountCfg['username'] ?? ''),
                             Utils::replacePlaceholdersPassword($accountCfg['password'] ?? ''),
-                            null
+                            null,
+                            $accountCfg['api_key'] ?? null
                         );
                         $abook = $infra->makeWebDavResource($abookCfg['url'], $account);
                         if ($abook instanceof AddressbookCollection) {
@@ -521,7 +525,8 @@ class AdminSettings
                 '',
                 Utils::replacePlaceholdersUsername($accountCfg['username'] ?? ''),
                 Utils::replacePlaceholdersPassword($accountCfg['password'] ?? ''),
-                null
+                null,
+                $accountCfg['api_key'] ?? null
             );
             $abook = $infra->makeWebDavResource($xabookUrl, $account);
             if ($abook instanceof AddressbookCollection) {
